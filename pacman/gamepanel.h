@@ -11,7 +11,7 @@
 #include <thread>
 #include <chrono>
 
-#include "PacMan.h"
+#include "pacman.h"
 
 class GamePanel : public QWidget
 {

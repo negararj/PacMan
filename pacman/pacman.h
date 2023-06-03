@@ -5,11 +5,15 @@
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <QPixmap>
+#include <QLabel>
+#include <QLayout>
 
-class Pacman : public QGraphicsPixmapItem
+class Pacman : public QWidget
 {
     public:
-        Pacman();
+        Pacman(QWidget *parnet = nullptr);
+        //void move();
+        //void eat_ball();
 };
 
 #endif // PACMAN_H

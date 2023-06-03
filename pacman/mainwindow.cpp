@@ -8,8 +8,9 @@ MainWindow::MainWindow(QWidget *parent)
 {
     //ui->setupUi(this);
     GamePanel* panel = new GamePanel(this);
-    this->setFixedSize(500,500);
+    this->setFixedSize(800,500);
     this->setCentralWidget(panel);
+    this->setStyleSheet("background-color: black");
 }
 
 MainWindow::~MainWindow()

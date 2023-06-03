@@ -18,8 +18,7 @@ class GamePanel : public QWidget
     Q_OBJECT
     public:
         explicit GamePanel(QWidget *parent = nullptr);
-    private:
-        Pacman pacman;
+
 };
 
 #endif // GAMEPANEL_H

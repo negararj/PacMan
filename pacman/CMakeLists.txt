@@ -21,6 +21,7 @@ set(PROJECT_SOURCES
         gamepanel.h
         pacman.cpp
         pacman.h
+        pacman.qrc
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

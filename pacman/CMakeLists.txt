@@ -22,6 +22,8 @@ set(PROJECT_SOURCES
         pacman.cpp
         pacman.h
         pacman.qrc
+        cell.cpp
+        cell.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

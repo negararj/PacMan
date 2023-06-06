@@ -9,18 +9,18 @@ GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
 void GamePanel::keyPressEvent(QKeyEvent* event) {
     switch (event->key()) {
     case Qt::Key_Left:
-        pacman->move();
+        pacman->move(Pacman::Left);
         break;
     case Qt::Key_Right:
-        pacman->move();
+        pacman->move(Pacman::Right);
         break;
 
     case Qt::Key_Up:
-        pacman->move();
+        pacman->move(Pacman::Up);
         break;
 
     case Qt::Key_Down:
-        pacman->move();
+        pacman->move(Pacman::Down);
         break;
     }
 }

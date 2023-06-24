@@ -9,17 +9,15 @@
 #include <QLayout>
 #include "cell.h"
 
-class Pacman : public QWidget
+enum Direction{
+    Up, Down, Left, Right
+};
+
+class Pacman
 {
     public:
-        enum Dir {Up, Down, Left, Right};
-        Pacman(QWidget *parnet = nullptr);
-        void move(Dir dir);
-        void eat_ball(int *score);
-
-    private:
-        QLabel *label;
-        QPixmap pixmap;
+        Pacman(Cell *cell);
+        void move(Direction direction, QWidget *parent);
         Cell *cell;
 };
 

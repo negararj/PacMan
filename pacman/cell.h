@@ -1,27 +1,33 @@
 #ifndef CELL_H
 #define CELL_H
 
+#include <QWidget>
+#include <QPixmap>
+#include <QLabel>
 
-class Cell
+enum CellState{
+    Pacman, Ghost, Wall, Empty, Ball
+};
+
+
+class Cell : public QWidget
 {
-    public:
-        Cell(int x, int y);
-        enum CellState{Pacman, Ghost, Wall, Empty, Ball};
-        void make_empty();
-        void put_pacman();
-        void put_ghost();
-        void put_wall();
-        void put_ball();
 
-        Cell* left;
-        Cell* right;
-        Cell* up;
-        Cell* down;
-
-        int x, y;
-
-    private:
-        CellState state;
+public:
+    Cell(QWidget *parent, int x, int y, Cell *left, Cell *up);
+    CellState state;
+    Cell* left;
+    Cell* right;
+    Cell* up;
+    Cell* down;
+    int x;
+    int y;
+    void put_pic(QPixmap pixmap);
+    void make_it_empty(QWidget *parent);
+    void put_pacman(QWidget *parent);
+    void put_wall(QWidget *parent);
+    void put_ball(QWidget *parent);
+    QLabel *label;
 };
 
 #endif // CELL_H

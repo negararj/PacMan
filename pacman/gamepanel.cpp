@@ -3,24 +3,24 @@
 GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
 {
     this->setFocusPolicy(Qt::StrongFocus);
-    pacman = new Pacman(parent);
+    pacman = new Pacman();
 }
 
 void GamePanel::keyPressEvent(QKeyEvent* event) {
     switch (event->key()) {
     case Qt::Key_Left:
-        pacman->move(Pacman::Left);
+        pacman->move(Left);
         break;
     case Qt::Key_Right:
-        pacman->move(Pacman::Right);
+        pacman->move(Right);
         break;
 
     case Qt::Key_Up:
-        pacman->move(Pacman::Up);
+        pacman->move(Up);
         break;
 
     case Qt::Key_Down:
-        pacman->move(Pacman::Down);
+        pacman->move(Down);
         break;
     }
 }

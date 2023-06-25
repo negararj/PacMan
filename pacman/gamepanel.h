@@ -37,6 +37,8 @@ class GamePanel : public QWidget
         Cell* map[rows][columns];
         GameState state;
 
+        std::thread *movementThread;
+
 };
 
 #endif // GAMEPANEL_H

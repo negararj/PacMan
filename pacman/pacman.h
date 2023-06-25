@@ -16,9 +16,14 @@ enum Direction{
 class Pacman
 {
     public:
-        Pacman(Cell *cell);
-        void move(Direction direction, QWidget *parent);
-        Cell *cell;
+        Pacman(QWidget *parent,Cell *cell);
+
+        void setNextCell(Direction direction);
+        void move();
+
+        QWidget *parent;
+        Cell *cell, *nextCell;
+        Direction nextDir;
 };
 
 #endif // PACMAN_H

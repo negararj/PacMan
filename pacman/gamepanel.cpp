@@ -5,7 +5,14 @@ GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
 {
     this->setFocusPolicy(Qt::StrongFocus);
     make_the_map(parent);
-    this->parent=parent;
+   // this->parent=parent;
+
+    this->movementThread = new std::thread ([this](){
+        while(true){
+            this->pacman->move();
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+    });
 }
 
 void GamePanel::make_the_map(QWidget *parent){
@@ -38,7 +45,7 @@ void GamePanel::make_the_map(QWidget *parent){
                 break;
             case 'p':
                 map[i][j]->put_pacman(parent);
-                pacman = new Pacman(map[i][j]);
+                pacman = new Pacman(parent,map[i][j]);
                 break;
             case '3':
                 map[i][j]->make_it_empty(parent);
@@ -51,18 +58,20 @@ void GamePanel::make_the_map(QWidget *parent){
 void GamePanel::keyPressEvent(QKeyEvent* event) {
     switch (event->key()) {
     case Qt::Key_Left:
-        pacman->move(Left,parent);
+        pacman->setNextCell(Left);
         break;
     case Qt::Key_Right:
-        pacman->move(Right,parent);
+        pacman->setNextCell(Right);
         break;
 
     case Qt::Key_Up:
-        pacman->move(Up,parent);
+        pacman->setNextCell(Up);
         break;
 
     case Qt::Key_Down:
-        pacman->move(Down,parent);
+        pacman->setNextCell(Down);
         break;
+    //case Qt::Key_1:
+       // pacman->move();
     }
 }

@@ -10,6 +10,7 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <QFile>
 
 #include "pacman.h"
 #include "cell.h"
@@ -25,12 +26,13 @@ class GamePanel : public QWidget
         explicit GamePanel(QWidget *parent = nullptr);
 
         void keyPressEvent(QKeyEvent *event) override;
-        void make_the_map();
+        void make_the_map(QWidget *parent = nullptr);
 
     private:
         Pacman* pacman;
         int score;
         int ball_numbers;
+        QWidget *parent;
 
         Cell* map[rows][columns];
         GameState state;

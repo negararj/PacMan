@@ -6,7 +6,7 @@
 #include <QLabel>
 
 enum CellState{
-    Pacman, Ghost, Wall, Empty, Ball
+   pacman , ghost, wall, empty, ball
 };
 
 
@@ -14,7 +14,7 @@ class Cell : public QWidget
 {
 
 public:
-    Cell(QWidget *parent, int x, int y, Cell *left, Cell *up);
+    Cell(QWidget *parent, int x, int y, Cell *left =nullptr, Cell *up=nullptr);
     CellState state;
     Cell* left;
     Cell* right;

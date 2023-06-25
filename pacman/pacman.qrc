@@ -4,5 +4,6 @@
         <file>images/ball.png</file>
         <file>images/empty.png</file>
         <file>images/wall.png</file>
+        <file>images/map.txt</file>
     </qresource>
 </RCC>

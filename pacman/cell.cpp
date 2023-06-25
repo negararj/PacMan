@@ -2,16 +2,16 @@
 #include <QLabel>
 #include <QPixmap>
 
-Cell::Cell(QWidget *parent, int x, int y, Cell *left = NULL, Cell *up = NULL) : QWidget(parent)
+Cell::Cell(QWidget *parent, int x, int y, Cell *left, Cell *up) : QWidget(parent)
 {
     this->x = x;
     this->y = y;
-    state = Empty;
+    state = empty;
     this->up = up;
     this->left = left;
-    if(up != NULL)
+    if(up != nullptr)
         up->down = this;
-    if(right != NULL)
+    if(right != nullptr)
         left->right = this;
 
     label = new QLabel(parent);
@@ -23,7 +23,7 @@ void Cell::put_pic(QPixmap pixmap){
     label->setPixmap(pixmap);
     resize(pixmap.width(), pixmap.height());
     label->setGeometry(this->x, this->y, pixmap.width(), pixmap.height());
-    this->state = Pacman;
+    this->state = pacman;
 }
 
 void Cell::make_it_empty(QWidget *parent)

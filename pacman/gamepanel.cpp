@@ -46,23 +46,11 @@ void GamePanel::make_the_map(QWidget *parent){
             }
         }
     }
-    for(int i=0;i<rows;i++){
-        for(int j=0;j<columns;j++){
-            if(map[i][j]->right==nullptr){
-            //    std::cout<<"ghar"<<std::endl;
-            }else{
-             //   std::cout<<"ba"<<std::endl;
-            }
-           // std::cout<<map[i][j]->left<<map[i][j]->up<<std::endl;
-        }
-
-    }
 
 }
 void GamePanel::keyPressEvent(QKeyEvent* event) {
     switch (event->key()) {
     case Qt::Key_Left:
-        std::cout<<"ghar"<<std::endl;
         pacman->move(Left,parent);
         break;
     case Qt::Key_Right:

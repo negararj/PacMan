@@ -15,7 +15,7 @@
 #include "pacman.h"
 #include "cell.h"
 
-const int rows = 500, columns = 500;
+const int rows = 20, columns = 29;
 
 class GamePanel : public QWidget
 {

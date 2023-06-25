@@ -1,5 +1,6 @@
 #include "gamepanel.h"
 
+#include <iostream>
 GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
 {
     this->setFocusPolicy(Qt::StrongFocus);
@@ -8,23 +9,24 @@ GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
 }
 
 void GamePanel::make_the_map(QWidget *parent){
+
     QFile mapfile(":/images/map.txt");
     mapfile.open(QIODevice::ReadOnly|QIODevice::Text);
 
     for(int i=0;i<rows;i++){
         QByteArray line = mapfile.readLine();
         for(int j=0;j<columns;j++){
-            if(i>0){
+           if(i>0){
                 if(j>0){
-                    map[i][j] = new Cell(parent,i,j,map[i][j-1],map[i-1][j]);
+                   map[i][j] = new Cell(parent,50+(20*j),50+(20*i),map[i][j-1],map[i-1][j]);
                 }else{
-                    map[i][j] = new Cell(parent,i,j,nullptr,map[i-1][j]);
+                    map[i][j] = new Cell(parent,50+(20*j),50+(20*i),nullptr,map[i-1][j]);
                 }
             }else{
                 if(j>0){
-                    map[i][j] = new Cell(parent,i,j,map[i][j-1]);
+                    map[i][j] = new Cell(parent,50+(20*j),50+(20*i),map[i][j-1]);
                 }else{
-                    map[i][j] = new Cell(parent,i,j);
+                    map[i][j] = new Cell(parent,50+(20*j),50+(20*i));
                 }
             }
             switch(line[j]){
@@ -44,10 +46,23 @@ void GamePanel::make_the_map(QWidget *parent){
             }
         }
     }
+    for(int i=0;i<rows;i++){
+        for(int j=0;j<columns;j++){
+            if(map[i][j]->right==nullptr){
+            //    std::cout<<"ghar"<<std::endl;
+            }else{
+             //   std::cout<<"ba"<<std::endl;
+            }
+           // std::cout<<map[i][j]->left<<map[i][j]->up<<std::endl;
+        }
+
+    }
+
 }
 void GamePanel::keyPressEvent(QKeyEvent* event) {
     switch (event->key()) {
     case Qt::Key_Left:
+        std::cout<<"ghar"<<std::endl;
         pacman->move(Left,parent);
         break;
     case Qt::Key_Right:

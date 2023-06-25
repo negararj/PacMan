@@ -1,7 +1,7 @@
 #include "cell.h"
 #include <QLabel>
 #include <QPixmap>
-
+#include <iostream>
 Cell::Cell(QWidget *parent, int x, int y, Cell *left, Cell *up) : QWidget(parent)
 {
     this->x = x;
@@ -11,11 +11,9 @@ Cell::Cell(QWidget *parent, int x, int y, Cell *left, Cell *up) : QWidget(parent
     this->left = left;
     if(up != nullptr)
         up->down = this;
-    if(right != nullptr)
+    if(left != nullptr)
         left->right = this;
-
     label = new QLabel(parent);
-
     this->make_it_empty(parent);
 }
 

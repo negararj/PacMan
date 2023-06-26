@@ -16,6 +16,7 @@ class MainWindow : public QMainWindow
     public:
         MainWindow(QWidget *parent = nullptr);
         ~MainWindow();
+
         void start_game();
         void pause_game();
         void loose_game();

@@ -10,7 +10,7 @@
 #include "cell.h"
 
 enum Direction{
-    Up, Down, Left, Right
+    Up, Down, Left, Right, Null
 };
 
 class Pacman
@@ -18,12 +18,13 @@ class Pacman
     public:
         Pacman(QWidget *parent,Cell *cell);
 
-        void setNextCell(Direction direction);
+        void setNextDir(Direction direction);
+        void setNextCell();
         void move();
 
         QWidget *parent;
         Cell *cell, *nextCell;
-        Direction nextDir;
+        Direction nextDir, currentDir;
 };
 
 #endif // PACMAN_H

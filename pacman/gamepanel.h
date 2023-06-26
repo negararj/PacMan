@@ -11,6 +11,7 @@
 #include <chrono>
 #include <iostream>
 #include <QFile>
+#include <QTimer>
 
 #include "pacman.h"
 #include "cell.h"
@@ -21,12 +22,14 @@ class GamePanel : public QWidget
 {
     Q_OBJECT
     public:
-        enum GameState{win, loose, pause, running};
+        enum GameState{win, lose, pause, running};
 
         explicit GamePanel(QWidget *parent = nullptr);
 
         void keyPressEvent(QKeyEvent *event) override;
         void make_the_map(QWidget *parent = nullptr);
+        void init_labels();
+        void update_score();
 
     private:
         Pacman* pacman;
@@ -36,8 +39,13 @@ class GamePanel : public QWidget
 
         Cell* map[rows][columns];
         GameState state;
+        QLabel *score_title, *scoreLabel;
+        QLabel *win_label, *lose_label;
+        QTimer *score_timer;
 
         std::thread *movementThread;
+
+        friend void Cell::make_it_empty(QWidget *p);
 
 };
 

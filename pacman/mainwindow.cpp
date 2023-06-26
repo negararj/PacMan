@@ -6,11 +6,12 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     //ui->setupUi(this);
-    GamePanel* panel = new GamePanel(this);
+    GamePanel *panel = new GamePanel(this);
     this->setFixedSize(800,500);
     this->setCentralWidget(panel);
     this->setStyleSheet("background-color: black");
 }
+
 
 MainWindow::~MainWindow()
 {

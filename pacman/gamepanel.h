@@ -36,7 +36,7 @@ class GamePanel : public QWidget
     private:
         Pacman* pacman;
         Ghost *ghosts[4];
-        //int timeToGetNormal=0;
+        int timeToGetNormal=0;
         int score;
         int ball_numbers, powerball_numbers;
         Cell* map[rows][columns];
@@ -45,7 +45,7 @@ class GamePanel : public QWidget
         QLabel *score_title, *scoreLabel;
         QLabel *win_label, *lose_label;
         QTimer *score_timer;
-        std::thread *movementThread,*ghostsMovement;
+        std::thread *movementThread,*ghostsMovement,*pmodeThread;
 };
 
 #endif // GAMEPANEL_H

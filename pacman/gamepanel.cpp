@@ -28,6 +28,7 @@ GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
                 if(pacman->nextCell != pacman->cell && pacman->nextCell->state == powerBall){
                     score += PSCORE;
                     switchMode();
+                    timeToGetNormal=5;
                 }
             }else{
                 if(this->pacman->nextCell->state == ghost){
@@ -40,7 +41,7 @@ GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
 
                 if(pacman->nextCell != pacman->cell && pacman->nextCell->state == powerBall){
                     score += PSCORE;
-                    this->state=pmode;
+                    timeToGetNormal=5;
                 }
             }
             update_score();
@@ -67,6 +68,18 @@ GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
                     this->ghosts[i]->move(this->state);
                 }
                 std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            }
+        }
+    });
+
+    this->pmodeThread = new std::thread([this](){
+        while(this->state == running || this->state == pmode){
+            if(timeToGetNormal){
+                timeToGetNormal--;
+                if(!timeToGetNormal){
+                    switchMode();
+                }
+                std::this_thread::sleep_for(std::chrono::seconds(1));
             }
         }
     });

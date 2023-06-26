@@ -8,5 +8,22 @@
         <file>images/pacman/left.png</file>
         <file>images/pacman/right.png</file>
         <file>images/pacman/up.png</file>
+        <file>images/ghost/run.png</file>
+        <file>images/ghost/green/down.png</file>
+        <file>images/ghost/green/left.png</file>
+        <file>images/ghost/green/right.png</file>
+        <file>images/ghost/green/up.png</file>
+        <file>images/ghost/orange/down.png</file>
+        <file>images/ghost/orange/left.png</file>
+        <file>images/ghost/orange/right.png</file>
+        <file>images/ghost/orange/up.png</file>
+        <file>images/ghost/pink/down.png</file>
+        <file>images/ghost/pink/left.png</file>
+        <file>images/ghost/pink/right.png</file>
+        <file>images/ghost/pink/up.png</file>
+        <file>images/ghost/red/down.png</file>
+        <file>images/ghost/red/left.png</file>
+        <file>images/ghost/red/right.png</file>
+        <file>images/ghost/red/up.png</file>
     </qresource>
 </RCC>

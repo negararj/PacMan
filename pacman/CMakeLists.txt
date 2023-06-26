@@ -24,6 +24,10 @@ set(PROJECT_SOURCES
         pacman.qrc
         cell.cpp
         cell.h
+        ghost.cpp
+        ghost.h
+        gameobject.cpp
+        gameobject.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

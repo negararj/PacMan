@@ -6,8 +6,9 @@ const int SCORE = 10;
 GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
 {
     this->setFocusPolicy(Qt::StrongFocus);
-    make_the_map(parent);
     score = 0;
+    ball_numbers = 0;
+    make_the_map(parent);
     state = GameState::running;
 
     init_labels();
@@ -77,6 +78,8 @@ void GamePanel::make_the_map(QWidget *parent){
     QFile mapfile(":/images/map.txt");
     mapfile.open(QIODevice::ReadOnly|QIODevice::Text);
 
+    int ghostCounter = 0;
+
     for(int i=0;i<rows;i++){
         QByteArray line = mapfile.readLine();
         for(int j=0;j<columns;j++){
@@ -110,10 +113,26 @@ void GamePanel::make_the_map(QWidget *parent){
             case '3':
                 map[i][j]->make_it_empty(parent);
                 break;
+            case 'g':
+                if(ghostCounter == 0){
+                    pix = QPixmap(":/images/ghost/green/right.png");
+                }
+                else if(ghostCounter == 1){
+                    pix = QPixmap(":/images/ghost/red/right.png");
+                }
+                else if(ghostCounter == 2){
+                    pix = QPixmap(":/images/ghost/pink/right.png");
+                }
+                else{
+                    pix = QPixmap(":/images/ghost/orange/right.png");
+                }
+                map[i][j]->put_ghost(parent, pix);
+                ghosts[ghostCounter] = new Ghost(parent, map[i][j], Color(ghostCounter));
+                ghostCounter ++;
+                std::cout << ghostCounter << std::endl;
             }
         }
     }
-
 }
 void GamePanel::keyPressEvent(QKeyEvent* event) {
     switch (event->key()) {

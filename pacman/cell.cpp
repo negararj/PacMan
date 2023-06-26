@@ -51,4 +51,11 @@ void Cell::put_ball(QWidget *parent)
     this->state = ball;
 }
 
+void Cell::put_ghost(QWidget *parent, QPixmap pixmap)
+{
+    //QPixmap pixmap = QPixmap(":/images/a4.png");
+    put_pic(pixmap);
+    this->state = ghost;
+}
+
 

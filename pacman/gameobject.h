@@ -1,19 +1,32 @@
-#ifndef GAMEOBJECT_H
-#define GAMEOBJECT_H
+#ifndef GameObject_H
+#define GameObject_H
 
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsItem>
+#include <QPixmap>
+#include <QLabel>
+#include <QLayout>
+#include "cell.h"
+
+enum Direction{
+    Up, Down, Left, Right, Null
+};
 
 class GameObject
 {
-    public:
-        GameObject();
-        enum ObjectType {Ball, Wall, Gate, Pacman, Ghost, Blank, PowerBall};
-        enum Direction {Up = 0, Down = 1, Left = 2, Right = 3, Stop = 4};
-
     protected:
-        int x, y;
-        Direction direction, next_dir;
-        ObjectType type;
-        int score;
+        QPixmap pic[5];
+    public:
+        GameObject(QWidget *parent,Cell *cell);
+
+        void setNextDir(Direction direction);
+        void setNextCell();
+        QPixmap move();
+
+        QWidget *parent;
+        Cell *cell, *nextCell;
+        Direction nextDir, currentDir;
 };
 
-#endif // GAMEOBJECT_H
+#endif // GameObject_H

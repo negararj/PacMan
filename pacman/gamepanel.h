@@ -13,7 +13,9 @@
 #include <QFile>
 #include <QTimer>
 
+#include "gameobject.h"
 #include "pacman.h"
+#include "ghost.h"
 #include "cell.h"
 
 const int rows = 20, columns = 29;
@@ -33,6 +35,8 @@ class GamePanel : public QWidget
 
     private:
         Pacman* pacman;
+        Ghost *ghosts[4];
+
         int score;
         int ball_numbers;
         QWidget *parent;

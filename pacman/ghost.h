@@ -1,5 +1,5 @@
-#ifndef PACMAN_H
-#define PACMAN_H
+#ifndef GHOST_H
+#define GHOST_H
 
 #include <QGraphicsView>
 #include <QGraphicsScene>
@@ -10,12 +10,11 @@
 #include "cell.h"
 #include "gameobject.h"
 
-
-class Pacman : public GameObject
+class Ghost : public GameObject
 {
     public:
-        Pacman(QWidget *parent,Cell *cell);
+        Ghost(QWidget *parent,Cell *cell, Color color);
         void move();
 };
 
-#endif // PACMAN_H
+#endif // GHOST_H

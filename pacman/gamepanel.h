@@ -27,7 +27,6 @@ class GamePanel : public QWidget
         enum GameState{win, lose, pause, running};
 
         explicit GamePanel(QWidget *parent = nullptr);
-
         void keyPressEvent(QKeyEvent *event) override;
         void make_the_map(QWidget *parent = nullptr);
         void init_labels();
@@ -36,21 +35,15 @@ class GamePanel : public QWidget
     private:
         Pacman* pacman;
         Ghost *ghosts[4];
-
         int score;
-        int ball_numbers;
-        QWidget *parent;
-
+        int ball_numbers, powerball_numbers;
         Cell* map[rows][columns];
         GameState state;
+        QWidget *parent;
         QLabel *score_title, *scoreLabel;
         QLabel *win_label, *lose_label;
         QTimer *score_timer;
-
         std::thread *movementThread,*ghostsMovement;
-
-        friend void Cell::make_it_empty(QWidget *p);
-
 };
 
 #endif // GAMEPANEL_H

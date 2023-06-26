@@ -6,18 +6,25 @@
 #include <QLabel>
 
 enum CellState{
-   pacman , ghost, wall, empty, ball
+    pacman , ghost, wall, empty, ball, powerBall
 };
 
 enum Color{
     green, red, pink, orange
 };
 
-
 class Cell : public QWidget
 {
     public:
         Cell(QWidget *parent, int x, int y, Cell *left =nullptr, Cell *up=nullptr);
+        void putPic(QPixmap pixmap);
+        void makeItEmpty(QWidget *parent);
+        void putPacman(QWidget *parent, QPixmap pixmap);
+        void putWall(QWidget *parent);
+        void putBall(QWidget *parent);
+        void putPowerball(QWidget *parent);
+        void putGhost(QWidget *parent, QPixmap pixmap);
+
         CellState state;
         bool hasBall;
         Cell* left;
@@ -26,12 +33,6 @@ class Cell : public QWidget
         Cell* down;
         int x;
         int y;
-        void put_pic(QPixmap pixmap);
-        void make_it_empty(QWidget *parent);
-        void put_pacman(QWidget *parent, QPixmap pixmap);
-        void put_wall(QWidget *parent);
-        void put_ball(QWidget *parent);
-        void put_ghost(QWidget *parent, QPixmap pixmap);
         QLabel *label;
 };
 

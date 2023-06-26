@@ -2,78 +2,67 @@
 #include <iostream>
 #include <random>
 
-const int SCORE = 10;
+const int SCORE = 10, PSCORE = 20;
 
 GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
 {
     srand (time(NULL));
     this->setFocusPolicy(Qt::StrongFocus);
-    score = 0;
-    ball_numbers = 0;
+    score = ball_numbers = powerball_numbers = 0;
     make_the_map(parent);
     state = GameState::running;
 
     init_labels();
 
-    //this->parent=parent;
-
     this->movementThread = new std::thread ([this](){
-
         while(this->state == running){
             this->pacman->setNextCell();
-
             if(this->pacman->nextCell->state == ghost){
                 this->state=lose;
-                update_score();
             }
-
             if(pacman->nextCell != pacman->cell && pacman->nextCell->state == ball){
-                //std::cout << "ghar" << std::endl;
                 score += SCORE;
-                update_score();
             }
+            if(pacman->nextCell != pacman->cell && pacman->nextCell->state == powerBall){
+                score += PSCORE;
+            }
+            update_score();
 
             if(pacman->nextCell->state != wall){
                 this->pacman->move();
             }
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
-
     });
 
     this->ghostsMovement = new std::thread([this](){
-
-        while(this->state == running ){
+        while(this->state == running){
             for(int i=0;i<4;i++){
-                ghosts[i]->setNextDir(Direction(random()%4));
+                ghosts[i]->setNextDir(Direction(rand()%4));
                 this->ghosts[i]->setNextCell();
 
                 if(this->ghosts[i]->nextCell->state == CellState::pacman){
                     this->state=lose;
                     update_score();
                 }
-
                 if(ghosts[i]->nextCell->state != wall){
                     this->ghosts[i]->move();
                 }
-                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                std::this_thread::sleep_for(std::chrono::milliseconds(200));
             }
         }
-
     });
 }
 
 void GamePanel::update_score(){
     scoreLabel->setText(QString::number(score));
-    if(score == ball_numbers * SCORE){
+    if(score == ball_numbers * SCORE + powerball_numbers * PSCORE){
         state = win;
     }
     if (state == win) {
         win_label->show();
-        //score_timer->stop();
     }else if (state == lose) {
         lose_label->show();
-        //score_timer->stop();
     }
 }
 
@@ -92,7 +81,7 @@ void GamePanel::init_labels(){
     win_label = new QLabel(this);
     win_label->hide();
     win_label->setText("You win!");
-    win_label->setStyleSheet("QLabel {font-family: Fixedsys;color: yellow;font-size: 16px;}");
+    win_label->setStyleSheet("QLabel {font-family: Fixedsys;color: green;font-size: 16px;}");
     win_label->setGeometry(310, 12, 150, 26);
 
     lose_label = new QLabel(this);
@@ -130,36 +119,28 @@ void GamePanel::make_the_map(QWidget *parent){
             QPixmap pix;
             switch(line[j]){
             case '0':
-                map[i][j]->put_ball(parent);
+                map[i][j]->putBall(parent);
                 ball_numbers ++;
                 break;
             case '1':
-                map[i][j]->put_wall(parent);
+                map[i][j]->putWall(parent);
                 break;
             case 'p':
                 pix = QPixmap(":/images/pacman/right.png");
-                map[i][j]->put_pacman(parent, pix);
+                map[i][j]->putPacman(parent, pix);
                 pacman = new Pacman(parent,map[i][j]);
                 break;
             case '3':
-                map[i][j]->make_it_empty(parent);
+                map[i][j]->makeItEmpty(parent);
                 break;
             case 'g':
-                if(ghostCounter == 0){
-                    pix = QPixmap(":/images/ghost/green/right.png");
-                }
-                else if(ghostCounter == 1){
-                    pix = QPixmap(":/images/ghost/red/right.png");
-                }
-                else if(ghostCounter == 2){
-                    pix = QPixmap(":/images/ghost/pink/right.png");
-                }
-                else{
-                    pix = QPixmap(":/images/ghost/orange/right.png");
-                }
-                map[i][j]->put_ghost(parent, pix);
                 ghosts[ghostCounter] = new Ghost(parent, map[i][j], Color(ghostCounter));
                 ghostCounter ++;
+                break;
+            case '4':
+                map[i][j]->putPowerball(parent);
+                powerball_numbers ++;
+                break;
             }
         }
     }
@@ -172,11 +153,9 @@ void GamePanel::keyPressEvent(QKeyEvent* event) {
     case Qt::Key_Right:
         pacman->setNextDir(Right);
         break;
-
     case Qt::Key_Up:
         pacman->setNextDir(Up);
         break;
-
     case Qt::Key_Down:
         pacman->setNextDir(Down);
         break;

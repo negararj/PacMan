@@ -10,18 +10,19 @@
 #include "cell.h"
 
 enum Direction{
-    Up, Down, Left, Right, Null
+    Right, Left, Up, Down
 };
 
 class GameObject
 {
     protected:
         QPixmap pic[5];
+
     public:
         GameObject(QWidget *parent,Cell *cell);
-
         void setNextDir(Direction direction);
         void setNextCell();
+        Cell* findNextCell(Direction direction);
         QPixmap move();
 
         QWidget *parent;

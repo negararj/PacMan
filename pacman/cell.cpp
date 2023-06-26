@@ -6,57 +6,63 @@ Cell::Cell(QWidget *parent, int x, int y, Cell *left, Cell *up) : QWidget(parent
 {
     this->x = x;
     this->y = y;
-    state = empty;
     this->up = up;
     this->left = left;
+    state = empty;
     if(up != nullptr)
         up->down = this;
     if(left != nullptr)
         left->right = this;
     label = new QLabel(parent);
-    this->make_it_empty(parent);
+    this->makeItEmpty(parent);
     hasBall=false;
 }
 
-void Cell::put_pic(QPixmap pixmap){
+void Cell::putPic(QPixmap pixmap){
     label->setPixmap(pixmap);
     resize(pixmap.width(), pixmap.height());
     label->setGeometry(this->x, this->y, pixmap.width(), pixmap.height());
 }
 
-void Cell::make_it_empty(QWidget *parent)
+void Cell::makeItEmpty(QWidget *parent)
 {
     QPixmap pixmap = QPixmap(":/images/empty.png");
-    put_pic(pixmap);
+    putPic(pixmap);
     this->state = empty;
 }
 
-void Cell::put_pacman(QWidget *parent, QPixmap pixmap)
+void Cell::putPacman(QWidget *parent, QPixmap pixmap)
 {
-    //QPixmap pixmap = QPixmap(":/images/a4.png");
-    put_pic(pixmap);
+    putPic(pixmap);
     this->state = pacman;
 }
 
-void Cell::put_wall(QWidget *parent)
+void Cell::putWall(QWidget *parent)
 {
     QPixmap pixmap = QPixmap(":/images/wall.png");
-    put_pic(pixmap);
+    putPic(pixmap);
     this->state = wall;
 }
 
-void Cell::put_ball(QWidget *parent)
+void Cell::putBall(QWidget *parent)
 {
     QPixmap pixmap = QPixmap(":/images/ball.png");
-    put_pic(pixmap);
+    putPic(pixmap);
     this->state = ball;
     hasBall=true;
 }
 
-void Cell::put_ghost(QWidget *parent, QPixmap pixmap)
+void Cell::putPowerball(QWidget *parent)
 {
-    //QPixmap pixmap = QPixmap(":/images/a4.png");
-    put_pic(pixmap);
+    QPixmap pixmap = QPixmap(":/images/power_ball.png");
+    putPic(pixmap);
+    this->state = powerBall;
+    hasBall=true;
+}
+
+void Cell::putGhost(QWidget *parent, QPixmap pixmap)
+{
+    putPic(pixmap);
     this->state = ghost;
 }
 

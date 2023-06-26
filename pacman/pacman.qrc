@@ -25,5 +25,6 @@
         <file>images/ghost/red/left.png</file>
         <file>images/ghost/red/right.png</file>
         <file>images/ghost/red/up.png</file>
+        <file>images/power_ball.png</file>
     </qresource>
 </RCC>

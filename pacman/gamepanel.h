@@ -36,8 +36,8 @@ class GamePanel : public QWidget
     private:
         Pacman* pacman;
         Ghost *ghosts[4];
-        int timeToGetNormal=0;
-        int score;
+        int timeToGetNormal;
+        int score, totalScore;
         int ball_numbers, powerball_numbers;
         Cell* map[rows][columns];
         GameState state;

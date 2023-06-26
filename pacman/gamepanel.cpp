@@ -8,7 +8,7 @@ GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
 {
     srand (time(NULL));
     this->setFocusPolicy(Qt::StrongFocus);
-    score = ball_numbers = powerball_numbers = 0;
+    score = totalScore = ball_numbers = powerball_numbers = 0;
     make_the_map(parent);
     state = GameState::running;
 
@@ -22,24 +22,28 @@ GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
                     this->state=lose;
                 }
                 if(pacman->nextCell != pacman->cell && pacman->nextCell->state == ball){
+                    totalScore += SCORE;
                     score += SCORE;
                 }
 
                 if(pacman->nextCell != pacman->cell && pacman->nextCell->state == powerBall){
+                    totalScore += PSCORE;
                     score += PSCORE;
                     switchMode();
                     timeToGetNormal=5;
                 }
             }else{
                 if(this->pacman->nextCell->state == ghost){
-                    score += GSCORE;
+                    totalScore += GSCORE;
                     ghosts[this->pacman->nextCell->id]->nextCell=ghosts[this->pacman->nextCell->id]->initCell;
                 }
                 if(pacman->nextCell != pacman->cell && pacman->nextCell->state == ball){
+                    totalScore += SCORE;
                     score += SCORE;
                 }
 
                 if(pacman->nextCell != pacman->cell && pacman->nextCell->state == powerBall){
+                    totalScore += PSCORE;
                     score += PSCORE;
                     timeToGetNormal=5;
                 }
@@ -86,7 +90,7 @@ GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
 }
 
 void GamePanel::update_score(){
-    scoreLabel->setText(QString::number(score));
+    scoreLabel->setText(QString::number(totalScore));
     if(score == ball_numbers * SCORE + powerball_numbers * PSCORE){
         state = win;
     }

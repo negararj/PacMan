@@ -33,6 +33,11 @@ Ghost::Ghost(QWidget *parent,Cell *cell, Color color) : GameObject(parent, cell)
 
 void Ghost::move()
 {
+    if(this->cell->hasBall){
+        this->cell->put_ball(this->parent);
+    }else{
+        this->cell->make_it_empty(this->parent);
+    }
     QPixmap pixmap = GameObject::move();
     this->cell->put_ghost(this->parent, pixmap);
 }

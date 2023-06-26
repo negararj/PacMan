@@ -11,6 +11,8 @@ Pacman::Pacman(QWidget *parent,Cell *cell) : GameObject(parent, cell)
 
 void Pacman::move()
 {
+    this->cell->make_it_empty(this->parent);
+    this->cell->hasBall=false;
     QPixmap pixmap = GameObject::move();
     this->cell->put_pacman(this->parent, pixmap);
 }

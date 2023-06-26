@@ -51,7 +51,7 @@ void GameObject::setNextCell(){
 }
 QPixmap GameObject::move()
 {
-    this->cell->make_it_empty(this->parent);
+  //  this->cell->make_it_empty(this->parent);
     this->cell = nextCell;
     QPixmap pixmap;
 

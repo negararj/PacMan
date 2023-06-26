@@ -47,7 +47,7 @@ class GamePanel : public QWidget
         QLabel *win_label, *lose_label;
         QTimer *score_timer;
 
-        std::thread *movementThread;
+        std::thread *movementThread,*ghostsMovement;
 
         friend void Cell::make_it_empty(QWidget *p);
 

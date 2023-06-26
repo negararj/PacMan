@@ -1,10 +1,12 @@
 #include "gamepanel.h"
 #include <iostream>
+#include <random>
 
 const int SCORE = 10;
 
 GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
 {
+    srand (time(NULL));
     this->setFocusPolicy(Qt::StrongFocus);
     score = 0;
     ball_numbers = 0;
@@ -16,19 +18,48 @@ GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
     //this->parent=parent;
 
     this->movementThread = new std::thread ([this](){
-        while(true){
+
+        while(this->state == running){
             this->pacman->setNextCell();
+
+            if(this->pacman->nextCell->state == ghost){
+                this->state=lose;
+                update_score();
+            }
 
             if(pacman->nextCell != pacman->cell && pacman->nextCell->state == ball){
                 //std::cout << "ghar" << std::endl;
                 score += SCORE;
                 update_score();
             }
+
             if(pacman->nextCell->state != wall){
                 this->pacman->move();
             }
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
+
+    });
+
+    this->ghostsMovement = new std::thread([this](){
+
+        while(this->state == running ){
+            for(int i=0;i<4;i++){
+                ghosts[i]->setNextDir(Direction(random()%4));
+                this->ghosts[i]->setNextCell();
+
+                if(this->ghosts[i]->nextCell->state == CellState::pacman){
+                    this->state=lose;
+                    update_score();
+                }
+
+                if(ghosts[i]->nextCell->state != wall){
+                    this->ghosts[i]->move();
+                }
+                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+            }
+        }
+
     });
 }
 
@@ -129,7 +160,6 @@ void GamePanel::make_the_map(QWidget *parent){
                 map[i][j]->put_ghost(parent, pix);
                 ghosts[ghostCounter] = new Ghost(parent, map[i][j], Color(ghostCounter));
                 ghostCounter ++;
-                std::cout << ghostCounter << std::endl;
             }
         }
     }
@@ -150,7 +180,5 @@ void GamePanel::keyPressEvent(QKeyEvent* event) {
     case Qt::Key_Down:
         pacman->setNextDir(Down);
         break;
-    //case Qt::Key_1:
-       // pacman->move();
     }
 }

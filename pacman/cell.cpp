@@ -15,6 +15,7 @@ Cell::Cell(QWidget *parent, int x, int y, Cell *left, Cell *up) : QWidget(parent
         left->right = this;
     label = new QLabel(parent);
     this->make_it_empty(parent);
+    hasBall=false;
 }
 
 void Cell::put_pic(QPixmap pixmap){
@@ -49,6 +50,7 @@ void Cell::put_ball(QWidget *parent)
     QPixmap pixmap = QPixmap(":/images/ball.png");
     put_pic(pixmap);
     this->state = ball;
+    hasBall=true;
 }
 
 void Cell::put_ghost(QWidget *parent, QPixmap pixmap)

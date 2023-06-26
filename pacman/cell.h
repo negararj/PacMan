@@ -19,6 +19,7 @@ class Cell : public QWidget
     public:
         Cell(QWidget *parent, int x, int y, Cell *left =nullptr, Cell *up=nullptr);
         CellState state;
+        bool hasBall;
         Cell* left;
         Cell* right;
         Cell* up;

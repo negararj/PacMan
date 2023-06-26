@@ -23,7 +23,7 @@ class Cell : public QWidget
         void putWall(QWidget *parent);
         void putBall(QWidget *parent);
         void putPowerball(QWidget *parent);
-        void putGhost(QWidget *parent, QPixmap pixmap);
+        void putGhost(QWidget *parent, QPixmap pixmap , int id);
 
         CellState state;
         bool hasBall;
@@ -34,6 +34,7 @@ class Cell : public QWidget
         int x;
         int y;
         QLabel *label;
+        int id;
 };
 
 #endif // CELL_H

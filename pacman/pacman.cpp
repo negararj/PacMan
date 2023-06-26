@@ -13,6 +13,7 @@ void Pacman::move()
 {
     this->cell->makeItEmpty(this->parent);
     this->cell->hasBall=false;
+    this->cell=nextCell;
     QPixmap pixmap = GameObject::move();
     this->cell->putPacman(this->parent, pixmap);
 }

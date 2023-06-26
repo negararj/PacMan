@@ -29,16 +29,24 @@ Ghost::Ghost(QWidget *parent,Cell *cell, Color color) : GameObject(parent, cell)
         pic[3] = QPixmap(":/images/ghost/orange/down.png");
         break;
     }
-    this->cell->putGhost(parent, pic[0]);
+    this->color=color;
+    this->cell->putGhost(parent, pic[0],(int)color);
+    this->cell->id=(int)color;
 }
 
-void Ghost::move()
+void Ghost::move(GameState gamestate)
 {
     if(this->cell->hasBall){
         this->cell->putBall(this->parent);
     }else{
         this->cell->makeItEmpty(this->parent);
     }
-    QPixmap pixmap = GameObject::move();
-    this->cell->putGhost(this->parent, pixmap);
+    this->cell = nextCell;
+    QPixmap pixmap;
+    if(gamestate == running){
+        pixmap = GameObject::move();
+    }else{
+        pixmap = this->pic[4];
+    }
+    this->cell->putGhost(this->parent, pixmap, this->cell->id);
 }

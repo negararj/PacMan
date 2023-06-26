@@ -12,13 +12,12 @@
 enum Direction{
     Right, Left, Up, Down
 };
-
+enum GameState{win, lose, pmode, running};
 class GameObject
 {
-    protected:
-        QPixmap pic[5];
 
     public:
+        QPixmap pic[5];
         GameObject(QWidget *parent,Cell *cell);
         void setNextDir(Direction direction);
         void setNextCell();
@@ -26,7 +25,7 @@ class GameObject
         QPixmap move();
 
         QWidget *parent;
-        Cell *cell, *nextCell;
+        Cell *cell, *nextCell, *initCell;
         Direction nextDir, currentDir;
 };
 

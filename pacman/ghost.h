@@ -13,8 +13,10 @@
 class Ghost : public GameObject
 {
     public:
+
+        Color color;
         Ghost(QWidget *parent,Cell *cell, Color color);
-        void move();
+        void move(GameState gamestate);
 };
 
 #endif // GHOST_H

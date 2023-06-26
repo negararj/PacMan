@@ -2,9 +2,8 @@
 #include <iostream>
 
 GameObject::GameObject(QWidget *parent, Cell *cell){
-    this->cell = cell;
     this->parent = parent;
-    this->nextCell = this->cell;
+    this->initCell = this->nextCell = this->cell = cell;
     this->currentDir = this->nextDir = Up;
 }
 void GameObject::setNextDir(Direction direction){
@@ -42,7 +41,8 @@ void GameObject::setNextCell(){
 }
 QPixmap GameObject::move()
 {
-    this->cell = nextCell;
+
+
     QPixmap pixmap = pic[Direction(currentDir)];
     return pixmap;
 }

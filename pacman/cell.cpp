@@ -60,10 +60,11 @@ void Cell::putPowerball(QWidget *parent)
     hasBall=true;
 }
 
-void Cell::putGhost(QWidget *parent, QPixmap pixmap)
+void Cell::putGhost(QWidget *parent, QPixmap pixmap ,int id)
 {
     putPic(pixmap);
     this->state = ghost;
+    this->id=id;
 }
 
 

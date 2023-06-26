@@ -2,7 +2,7 @@
 #include <iostream>
 #include <random>
 
-const int SCORE = 10, PSCORE = 20;
+const int SCORE = 10 , PSCORE = 20 , GSCORE = 50;
 
 GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
 {
@@ -15,16 +15,33 @@ GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
     init_labels();
 
     this->movementThread = new std::thread ([this](){
-        while(this->state == running){
+        while(this->state == running|| this->state == pmode){
             this->pacman->setNextCell();
-            if(this->pacman->nextCell->state == ghost){
-                this->state=lose;
-            }
-            if(pacman->nextCell != pacman->cell && pacman->nextCell->state == ball){
-                score += SCORE;
-            }
-            if(pacman->nextCell != pacman->cell && pacman->nextCell->state == powerBall){
-                score += PSCORE;
+            if(this->state == running){
+                if(this->pacman->nextCell->state == ghost){
+                    this->state=lose;
+                }
+                if(pacman->nextCell != pacman->cell && pacman->nextCell->state == ball){
+                    score += SCORE;
+                }
+
+                if(pacman->nextCell != pacman->cell && pacman->nextCell->state == powerBall){
+                    score += PSCORE;
+                    switchMode();
+                }
+            }else{
+                if(this->pacman->nextCell->state == ghost){
+                    score += GSCORE;
+                    ghosts[this->pacman->nextCell->id]->nextCell=ghosts[this->pacman->nextCell->id]->initCell;
+                }
+                if(pacman->nextCell != pacman->cell && pacman->nextCell->state == ball){
+                    score += SCORE;
+                }
+
+                if(pacman->nextCell != pacman->cell && pacman->nextCell->state == powerBall){
+                    score += PSCORE;
+                    this->state=pmode;
+                }
             }
             update_score();
 
@@ -36,17 +53,18 @@ GamePanel::GamePanel(QWidget *parent) : QWidget{parent}
     });
 
     this->ghostsMovement = new std::thread([this](){
-        while(this->state == running){
+        while(this->state == running || this->state == pmode){
             for(int i=0;i<4;i++){
                 ghosts[i]->setNextDir(Direction(rand()%4));
                 this->ghosts[i]->setNextCell();
 
-                if(this->ghosts[i]->nextCell->state == CellState::pacman){
+                if(this->ghosts[i]->nextCell->state == CellState::pacman && this->state != pmode){
                     this->state=lose;
                     update_score();
                 }
+
                 if(ghosts[i]->nextCell->state != wall){
-                    this->ghosts[i]->move();
+                    this->ghosts[i]->move(this->state);
                 }
                 std::this_thread::sleep_for(std::chrono::milliseconds(200));
             }
@@ -142,6 +160,19 @@ void GamePanel::make_the_map(QWidget *parent){
                 powerball_numbers ++;
                 break;
             }
+        }
+    }
+}
+void GamePanel::switchMode(){
+    if(this->state == running){
+        this->state=pmode;
+        for(auto ghost:ghosts){
+            ghost->cell->putGhost(parent,ghost->pic[4],ghost->cell->id);
+        }
+    }else{
+        this->state=running;
+        for(auto ghost:ghosts){
+            ghost->cell->putGhost(parent,ghost->pic[0],ghost->cell->id);
         }
     }
 }

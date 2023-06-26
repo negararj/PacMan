@@ -24,17 +24,19 @@ class GamePanel : public QWidget
 {
     Q_OBJECT
     public:
-        enum GameState{win, lose, pause, running};
+
 
         explicit GamePanel(QWidget *parent = nullptr);
         void keyPressEvent(QKeyEvent *event) override;
         void make_the_map(QWidget *parent = nullptr);
         void init_labels();
         void update_score();
+        void switchMode();
 
     private:
         Pacman* pacman;
         Ghost *ghosts[4];
+        //int timeToGetNormal=0;
         int score;
         int ball_numbers, powerball_numbers;
         Cell* map[rows][columns];

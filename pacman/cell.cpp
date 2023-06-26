@@ -30,9 +30,9 @@ void Cell::make_it_empty(QWidget *parent)
     this->state = empty;
 }
 
-void Cell::put_pacman(QWidget *parent)
+void Cell::put_pacman(QWidget *parent, QPixmap pixmap)
 {
-    QPixmap pixmap = QPixmap(":/images/a4.png");
+    //QPixmap pixmap = QPixmap(":/images/a4.png");
     put_pic(pixmap);
     this->state = pacman;
 }

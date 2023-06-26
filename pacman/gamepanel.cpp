@@ -93,6 +93,7 @@ void GamePanel::make_the_map(QWidget *parent){
                     map[i][j] = new Cell(parent,50+(20*j),50+(20*i));
                 }
             }
+            QPixmap pix;
             switch(line[j]){
             case '0':
                 map[i][j]->put_ball(parent);
@@ -102,7 +103,8 @@ void GamePanel::make_the_map(QWidget *parent){
                 map[i][j]->put_wall(parent);
                 break;
             case 'p':
-                map[i][j]->put_pacman(parent);
+                pix = QPixmap(":/images/pacman/right.png");
+                map[i][j]->put_pacman(parent, pix);
                 pacman = new Pacman(parent,map[i][j]);
                 break;
             case '3':

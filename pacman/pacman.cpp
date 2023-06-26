@@ -53,5 +53,25 @@ void Pacman::move()
 {
     this->cell->make_it_empty(this->parent);
     this->cell = nextCell;
-    this->cell->put_pacman(this->parent);
+    QPixmap pixmap;
+
+    switch (currentDir) {
+        case Right:
+            pixmap = QPixmap(":/images/pacman/right.png");
+            break;
+        case Left:
+            pixmap = QPixmap(":/images/pacman/left.png");
+            break;
+        case Up:
+            pixmap = QPixmap(":/images/pacman/up.png");
+            break;
+        case Down:
+            pixmap = QPixmap(":/images/pacman/down.png");
+            break;
+        case Null:
+            pixmap = QPixmap(":/images/pacman/right.png");
+            break;
+    }
+    this->cell->put_pacman(this->parent, pixmap);
+
 }

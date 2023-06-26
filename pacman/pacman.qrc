@@ -1,9 +1,12 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/a4.png</file>
         <file>images/ball.png</file>
         <file>images/empty.png</file>
         <file>images/wall.png</file>
         <file>images/map.txt</file>
+        <file>images/pacman/down.png</file>
+        <file>images/pacman/left.png</file>
+        <file>images/pacman/right.png</file>
+        <file>images/pacman/up.png</file>
     </qresource>
 </RCC>
